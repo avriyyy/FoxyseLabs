@@ -107,15 +107,15 @@ function HomePage({ onNavigate }) {
       <section className="px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mb-12 md:mb-20 lg:mb-32">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-16 items-start md:items-stretch">
           <HeroVisual />
-          <div className="flex flex-col gap-4 md:gap-5 lg:gap-8">
-            <h1 className="text-[1.5rem] md:text-display-md lg:text-display-lg text-on-surface">
+          <div className="flex flex-col items-center md:items-start gap-4 md:gap-5 lg:gap-8">
+            <h1 className="text-[1.5rem] md:text-display-md lg:text-display-lg text-on-surface font-bold md:font-semibold text-center md:text-left">
               Software infrastructure for{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-pink-neon">borderless business.</span>
             </h1>
-            <p className="font-body-md text-[0.875rem] md:text-body-md text-on-surface-variant max-w-xl">
+            <p className="font-body-md text-[0.875rem] md:text-body-md text-on-surface-variant max-w-xl text-center md:text-left">
               A modern software platform that helps businesses deliver digital services, automate operations, and accept secure decentralized payments worldwide.
             </p>
-            <div className="flex flex-wrap gap-2 md:gap-3 lg:gap-4 items-center">
+            <div className="flex flex-wrap gap-2 md:gap-3 lg:gap-4 items-center justify-center md:justify-start">
               <button onClick={() => onNavigate("product")} className="btn-primary-filled px-4 md:px-6 lg:px-8 py-2 md:py-3 lg:py-4 rounded-DEFAULT font-label-mono uppercase tracking-wider text-[0.625rem] md:text-[0.7rem] lg:text-label-mono">
                 Go To Product
               </button>
@@ -130,7 +130,7 @@ function HomePage({ onNavigate }) {
       <section className="px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mb-12 md:mb-20 lg:mb-32">
         <div className="flex flex-col items-center justify-center gap-4 md:gap-5 lg:gap-6 py-12 md:py-16 lg:py-32">
           <span className="font-label-mono text-label-mono text-pink-neon tracking-widest uppercase">Coming Soon</span>
-          <h2 className="text-[1.5rem] md:text-display-md lg:text-display-lg text-on-surface text-center">
+          <h2 className="text-[1.5rem] md:text-display-md lg:text-display-lg text-on-surface text-center font-bold md:font-semibold">
             More Features <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-pink-neon">On The Way</span>
           </h2>
           <p className="font-body-md text-[0.875rem] md:text-body-md text-on-surface-variant max-w-md text-center">
@@ -152,7 +152,7 @@ function ProductPage({ onNavigate }) {
         </button>
         <div className="flex flex-col items-center justify-center gap-4 md:gap-6 py-12 md:py-28 lg:py-32">
           <span className="font-label-mono text-label-mono text-pink-neon tracking-widest uppercase">Coming Soon</span>
-          <h1 className="text-[1.5rem] md:text-display-md lg:text-display-lg text-on-surface text-center">Product</h1>
+          <h1 className="text-[1.5rem] md:text-display-md lg:text-display-lg text-on-surface text-center font-bold md:font-semibold">Product</h1>
           <p className="font-body-md text-[0.875rem] md:text-body-md text-on-surface-variant max-w-md text-center">
             We're crafting something powerful. Details coming soon.
           </p>
@@ -172,7 +172,7 @@ function DocsPage({ onNavigate }) {
         </button>
         <div className="flex flex-col items-center justify-center gap-4 md:gap-6 py-12 md:py-28 lg:py-32">
           <span className="font-label-mono text-label-mono text-pink-neon tracking-widest uppercase">Coming Soon</span>
-          <h1 className="text-[1.5rem] md:text-display-md lg:text-display-lg text-on-surface text-center">Documentation</h1>
+          <h1 className="text-[1.5rem] md:text-display-md lg:text-display-lg text-on-surface text-center font-bold md:font-semibold">Documentation</h1>
           <p className="font-body-md text-[0.875rem] md:text-body-md text-on-surface-variant max-w-md text-center">
             Guides, API references, and integration docs are on the way.
           </p>
