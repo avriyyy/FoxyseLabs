@@ -21,8 +21,8 @@ function NavBar({ active, onNavigate }) {
     <nav className="bg-surface/80 dark:bg-surface/80 backdrop-blur-xl fixed top-0 w-full z-50 shadow-sm border-b border-white/5">
       <div className="flex justify-between items-center h-16 md:h-20 px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
         <button onClick={() => onNavigate("home")} className="flex items-center gap-1.5 md:gap-3">
-          <Logo size={28} className="w-5 h-5 md:w-7 md:h-7" />
-          <span className="tracking-tighter text-[1rem] md:text-display-md">
+          <Logo size={28} />
+          <span className="font-display-md text-display-md tracking-tighter">
             <span className="text-on-surface">Foxyse</span><span className="text-pink-neon">Labs</span><span className="text-on-surface">.</span>
           </span>
         </button>
@@ -82,9 +82,9 @@ function Footer() {
   return (
     <footer className="bg-surface-dim dark:bg-surface-dim w-full py-6 md:py-10 lg:py-12 border-t border-surface-variant mt-auto">
       <div className="flex flex-col md:flex-row justify-between items-center px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto gap-3 md:gap-6 lg:gap-8">
-        <div className="flex items-center gap-2 md:gap-2 lg:gap-3">
-          <Logo size={28} className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
-          <span className="text-[1rem] md:text-[1.25rem] lg:text-display-md">
+        <div className="flex items-center gap-2 lg:gap-3">
+          <Logo size={28} />
+          <span className="font-display-md text-display-md">
             <span className="text-primary">Foxyse</span><span className="text-pink-neon">Labs</span><span className="text-on-surface">.</span>
           </span>
         </div>
@@ -103,11 +103,11 @@ function Footer() {
 
 function HomePage({ onNavigate }) {
   return (
-    <main className="flex-grow pt-32 pb-24">
-      <section className="px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mb-24 md:mb-32">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-10 lg:gap-16 items-start md:items-center">
+    <main className="flex-grow pt-24 md:pt-32 pb-24">
+      <section className="px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mb-12 md:mb-20 lg:mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-16 items-start md:items-stretch">
           <HeroVisual />
-          <div className="flex flex-col gap-6 md:gap-8">
+          <div className="flex flex-col gap-6 md:gap-5 lg:gap-8">
             <h1 className="text-display-md lg:text-display-lg text-on-surface">
               Software infrastructure for{" "}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-pink-neon">borderless business.</span>
@@ -127,8 +127,8 @@ function HomePage({ onNavigate }) {
         </div>
       </section>
 
-      <section className="px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mb-24 md:mb-32">
-        <div className="flex flex-col items-center justify-center gap-4 md:gap-6 py-20 md:py-28 lg:py-32">
+      <section className="px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto mb-12 md:mb-20 lg:mb-32">
+        <div className="flex flex-col items-center justify-center gap-4 md:gap-5 lg:gap-6 py-12 md:py-16 lg:py-32">
           <span className="font-label-mono text-label-mono text-pink-neon tracking-widest uppercase">Coming Soon</span>
           <h2 className="text-display-md lg:text-display-lg text-on-surface text-center">
             More Features <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary-container to-pink-neon">On The Way</span>
@@ -144,13 +144,13 @@ function HomePage({ onNavigate }) {
 
 function ProductPage({ onNavigate }) {
   return (
-    <main className="flex-grow pt-24 md:pt-28 lg:pt-32 pb-24">
+    <main className="flex-grow pt-24 md:pt-32 pb-24">
       <div className="px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
         <button onClick={() => onNavigate("home")} className="flex items-center gap-2 text-on-surface-variant hover:text-pink-neon transition-colors font-label-mono text-label-mono mb-8 md:mb-10 lg:mb-12">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
           Back to Home
         </button>
-        <div className="flex flex-col items-center justify-center gap-4 md:gap-6 py-20 md:py-28 lg:py-32">
+        <div className="flex flex-col items-center justify-center gap-4 md:gap-6 py-12 md:py-28 lg:py-32">
           <span className="font-label-mono text-label-mono text-pink-neon tracking-widest uppercase">Coming Soon</span>
           <h1 className="text-display-md lg:text-display-lg text-on-surface text-center">Product</h1>
           <p className="font-body-md text-body-md text-on-surface-variant max-w-md text-center">
@@ -164,13 +164,13 @@ function ProductPage({ onNavigate }) {
 
 function DocsPage({ onNavigate }) {
   return (
-    <main className="flex-grow pt-24 md:pt-28 lg:pt-32 pb-24">
+    <main className="flex-grow pt-24 md:pt-32 pb-24">
       <div className="px-margin-mobile md:px-margin-desktop max-w-max-width mx-auto">
         <button onClick={() => onNavigate("home")} className="flex items-center gap-2 text-on-surface-variant hover:text-pink-neon transition-colors font-label-mono text-label-mono mb-8 md:mb-10 lg:mb-12">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6" /></svg>
           Back to Home
         </button>
-        <div className="flex flex-col items-center justify-center gap-4 md:gap-6 py-20 md:py-28 lg:py-32">
+        <div className="flex flex-col items-center justify-center gap-4 md:gap-6 py-12 md:py-28 lg:py-32">
           <span className="font-label-mono text-label-mono text-pink-neon tracking-widest uppercase">Coming Soon</span>
           <h1 className="text-display-md lg:text-display-lg text-on-surface text-center">Documentation</h1>
           <p className="font-body-md text-body-md text-on-surface-variant max-w-md text-center">
