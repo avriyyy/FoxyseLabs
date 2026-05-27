@@ -34,27 +34,65 @@ export function IconDevices({ className = "" }) {
   )
 }
 
-export function IconCheck({ className = "" }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" {...s} className={className}>
-      <polyline points="4 12 9 17 20 6" />
-    </svg>
-  )
-}
 
-export function IconBolt({ className = "" }) {
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" {...s} className={className}>
-      <polygon points="13 2 3 14 12 14 11 22 21 10 12 10" />
-    </svg>
-  )
-}
 
 export function IconX({ className = "" }) {
   return (
     <svg width="24" height="24" viewBox="0 0 24 24" {...s} className={className}>
       <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
       <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+    </svg>
+  )
+}
+
+export function IconScanEye({ className = "" }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" {...s} className={className}>
+      <path d="M3 7V5a2 2 0 0 1 2-2h2" />
+      <path d="M17 3h2a2 2 0 0 1 2 2v2" />
+      <path d="M21 17v2a2 2 0 0 1-2 2h-2" />
+      <path d="M7 21H5a2 2 0 0 1-2-2v-2" />
+      <circle cx="12" cy="12" r="1" />
+      <path d="M18.944 12.33a1 1 0 0 0 0-.66 7.5 7.5 0 0 0-13.888 0 1 1 0 0 0 0 .66 7.5 7.5 0 0 0 13.888 0" />
+    </svg>
+  )
+}
+
+export function IconChartColumn({ className = "" }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" {...s} className={className}>
+      <path d="M3 3v16a2 2 0 0 0 2 2h16" />
+      <path d="M18 17V9" />
+      <path d="M13 17V5" />
+      <path d="M8 17v-3" />
+    </svg>
+  )
+}
+
+export function IconRocket({ className = "" }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" {...s} className={className}>
+      <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09" />
+      <path d="M9 12a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.4 22.4 0 0 1-4 2z" />
+      <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 .05 5 .05" />
+    </svg>
+  )
+}
+
+export function IconCheck({ className = "" }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" {...s} className={className}>
+      <path d="M20 6 9 17l-5-5" />
+    </svg>
+  )
+}
+
+export function IconCross({ className = "" }) {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" {...s} className={className}>
+      <path d="M18 6 6 18" />
+      <path d="m6 6 12 12" />
     </svg>
   )
 }

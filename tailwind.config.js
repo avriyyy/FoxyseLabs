@@ -96,6 +96,7 @@ export default {
         "headline-lg-mobile": ["1.25rem", { lineHeight: "1.4", fontWeight: "600" }],
         "display-lg": ["3.5rem", { lineHeight: "1.1", fontWeight: "700" }],
       },
+
     },
   },
   plugins: [],

@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+.superpowers/
+
+/src/generated/prisma
+
+# Environment
+.env
