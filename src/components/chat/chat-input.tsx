@@ -2,8 +2,7 @@
 
 import { useState, useRef, useCallback } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import { Button } from "@/components/ui/button";
-import { Send, Square } from "lucide-react";
+import { Send, Paperclip, Globe, Lightbulb, Bot, ChevronDown } from "lucide-react";
 
 interface ChatInputProps {
   onSend: (message: string) => void;
@@ -38,46 +37,111 @@ export function ChatInput({
   };
 
   return (
-    <div className="border-t border-[#2a2a2a] bg-[#1a1a1a] p-4">
-      <div className="max-w-3xl mx-auto">
-        <div className="relative flex items-end gap-2 bg-[#2a2a2a] rounded-xl border border-[#3a3a3a] focus-within:border-[#4a4a4a] transition-colors">
-          <TextareaAutosize
-            ref={textareaRef}
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={handleKeyDown}
-            placeholder="Type a message..."
-            minRows={1}
-            maxRows={8}
-            className="flex-1 bg-transparent px-4 py-3 text-sm text-white placeholder:text-gray-500 resize-none focus:outline-none"
-            disabled={disabled || isStreaming}
-          />
-          <div className="p-2">
-            {isStreaming ? (
-              <Button
-                size="icon"
-                variant="ghost"
-                onClick={onStop}
-                className="h-8 w-8 text-gray-400 hover:text-white hover:bg-[#3a3a3a]"
-              >
-                <Square className="h-4 w-4" />
-              </Button>
-            ) : (
-              <Button
-                size="icon"
-                onClick={handleSubmit}
-                disabled={!message.trim() || disabled}
-                className="h-8 w-8 bg-white text-black hover:bg-gray-200 disabled:opacity-50"
-              >
-                <Send className="h-4 w-4" />
-              </Button>
-            )}
+    <div className="px-[120px] pb-8 pt-5">
+      <div
+        className="flex flex-col justify-between"
+        style={{
+          background: "var(--surface-glass)",
+          borderRadius: "var(--radius-lg)",
+          border: "1px solid var(--border-subtle)",
+          minHeight: "120px",
+          padding: "14px 16px",
+        }}
+      >
+        {/* Textarea */}
+        <TextareaAutosize
+          ref={textareaRef}
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder="Message Foxyse..."
+          minRows={2}
+          maxRows={6}
+          className="bg-transparent text-sm resize-none focus:outline-none w-full"
+          style={{ color: "var(--foreground-primary)" }}
+          disabled={disabled || isStreaming}
+        />
+
+        {/* Toolbar */}
+        <div className="flex items-center justify-between mt-3">
+          {/* Left tools */}
+          <div className="flex items-center gap-2">
+            <button
+              className="p-1.5 rounded-md"
+              style={{
+                border: "1px solid var(--border-subtle)",
+                color: "var(--accent-primary)",
+              }}
+            >
+              <Paperclip className="w-4 h-4" />
+            </button>
+            <button
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md"
+              style={{
+                border: "1px solid var(--border-subtle)",
+                color: "var(--text-subtle)",
+              }}
+            >
+              <Globe className="w-4 h-4" style={{ color: "var(--accent-primary)" }} />
+              <span className="font-mono text-[9px]">Browser</span>
+            </button>
+            <button
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md"
+              style={{
+                border: "1px solid var(--border-subtle)",
+                color: "var(--text-subtle)",
+              }}
+            >
+              <Lightbulb className="w-4 h-4" style={{ color: "var(--accent-primary)" }} />
+              <span className="font-mono text-[9px]">Thinking</span>
+            </button>
+            <button
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md"
+              style={{
+                border: "1px solid var(--border-subtle)",
+                color: "var(--text-subtle)",
+              }}
+            >
+              <Bot className="w-4 h-4" style={{ color: "var(--accent-primary)" }} />
+              <span className="font-mono text-[9px]">Agent</span>
+            </button>
+          </div>
+
+          {/* Right tools */}
+          <div className="flex items-center gap-4">
+            <button
+              className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md"
+              style={{
+                border: "1px solid var(--border-subtle)",
+                color: "var(--foreground-muted)",
+              }}
+            >
+              <span className="text-[11px]">Foxyse K2.6</span>
+              <ChevronDown className="w-2 h-2" style={{ color: "var(--text-subtle)" }} />
+            </button>
+            <button
+              onClick={isStreaming ? onStop : handleSubmit}
+              disabled={!message.trim() && !isStreaming}
+              className="w-9 h-9 flex items-center justify-center"
+              style={{
+                background: "var(--accent-primary)",
+                borderRadius: "var(--radius-sm)",
+                opacity: !message.trim() && !isStreaming ? 0.5 : 1,
+              }}
+            >
+              <Send className="w-[18px] h-[18px] text-white" />
+            </button>
           </div>
         </div>
-        <p className="text-xs text-gray-500 text-center mt-2">
-          Press Enter to send, Shift+Enter for new line
-        </p>
       </div>
+
+      {/* Footer hint */}
+      <p
+        className="text-center font-mono text-[9px] mt-3"
+        style={{ color: "var(--text-subtle)" }}
+      >
+        Foxyse can make mistakes. Please verify important information.
+      </p>
     </div>
   );
 }

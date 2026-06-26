@@ -5,8 +5,7 @@ import { useParams } from "next/navigation";
 import { MessageList } from "./message-list";
 import { ChatInput } from "./chat-input";
 import { useChatStore } from "@/hooks/use-chat";
-import { Menu } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { Menu, Share2 } from "lucide-react";
 
 interface Message {
   id: string;
@@ -21,10 +20,10 @@ export function ChatInterface() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [conversationTitle, setConversationTitle] = useState("New Chat");
   const abortControllerRef = useRef<AbortController | null>(null);
   const { setSidebarOpen } = useChatStore();
 
-  // Fetch messages when conversation changes
   useEffect(() => {
     if (!conversationId) return;
 
@@ -55,7 +54,6 @@ export function ChatInterface() {
 
   const handleSend = useCallback(
     async (content: string) => {
-      // Add user message to UI immediately
       const userMessage: Message = {
         id: Date.now().toString(),
         role: "user",
@@ -64,7 +62,11 @@ export function ChatInterface() {
       setMessages((prev) => [...prev, userMessage]);
       setIsStreaming(true);
 
-      // Create abort controller for this request
+      // Update title from first message
+      if (messages.length === 0) {
+        setConversationTitle(content.slice(0, 50) + (content.length > 50 ? "..." : ""));
+      }
+
       abortControllerRef.current = new AbortController();
 
       try {
@@ -77,7 +79,7 @@ export function ChatInterface() {
               content: m.content,
             })),
             conversationId,
-            modelId: "gpt-4o", // Default model
+            modelId: "gpt-4o",
           }),
           signal: abortControllerRef.current.signal,
         });
@@ -86,13 +88,11 @@ export function ChatInterface() {
           throw new Error("Failed to send message");
         }
 
-        // Stream the response
         const reader = res.body?.getReader();
         const decoder = new TextDecoder();
         let assistantContent = "";
         const assistantId = (Date.now() + 1).toString();
 
-        // Add empty assistant message
         setMessages((prev) => [
           ...prev,
           { id: assistantId, role: "assistant", content: "" },
@@ -104,12 +104,10 @@ export function ChatInterface() {
             if (done) break;
 
             const chunk = decoder.decode(value, { stream: true });
-
-            // Parse AI SDK stream format
             const lines = chunk.split("\n");
+
             for (const line of lines) {
               if (line.startsWith("0:")) {
-                // Text chunk - extract the JSON string value
                 try {
                   const text = JSON.parse(line.slice(2));
                   assistantContent += text;
@@ -155,30 +153,65 @@ export function ChatInterface() {
     }
   }, []);
 
+  const handlePromptClick = useCallback(
+    (prompt: string) => {
+      handleSend(prompt);
+    },
+    [handleSend]
+  );
+
   if (isLoading) {
     return (
-      <div className="flex-1 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white" />
+      <div className="flex-1 flex items-center justify-center" style={{ background: "var(--background)" }}>
+        <div
+          className="animate-spin rounded-full h-8 w-8 border-b-2"
+          style={{ borderColor: "var(--accent-primary)" }}
+        />
       </div>
     );
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-[#0d0d0d]">
-      {/* Mobile header */}
-      <div className="lg:hidden flex items-center gap-3 p-3 border-b border-[#2a2a2a]">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setSidebarOpen(true)}
-          className="text-gray-400 hover:text-white"
+    <div className="flex-1 flex flex-col" style={{ background: "var(--background)" }}>
+      {/* Chat Header */}
+      <div
+        className="h-16 flex items-center justify-between px-7"
+        style={{
+          background: "#2C1B1F60",
+          backdropFilter: "blur(12px)",
+          borderBottom: "1px solid var(--border-subtle)",
+        }}
+      >
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setSidebarOpen(true)}
+            className="lg:hidden p-1"
+            style={{ color: "var(--accent-primary)" }}
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+          <div>
+            <h2 className="text-base font-semibold" style={{ color: "var(--foreground-primary)", fontFamily: "var(--font-heading)" }}>
+              {conversationTitle}
+            </h2>
+          </div>
+        </div>
+        <button
+          className="p-2 rounded-md"
+          style={{
+            border: "1px solid var(--border-subtle)",
+            color: "var(--accent-primary)",
+          }}
         >
-          <Menu className="h-5 w-5" />
-        </Button>
-        <span className="text-sm text-white font-medium">FoxyseLabs</span>
+          <Share2 className="w-4 h-4" />
+        </button>
       </div>
 
-      <MessageList messages={messages} isStreaming={isStreaming} />
+      <MessageList
+        messages={messages}
+        isStreaming={isStreaming}
+        onPromptClick={handlePromptClick}
+      />
       <ChatInput
         onSend={handleSend}
         onStop={handleStop}

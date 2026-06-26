@@ -1,20 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0d0d0d;
-  --foreground: #ededed;
-  --primary: #ededed;
-  --primary-foreground: #0d0d0d;
-  --muted: #2a2a2a;
-  --muted-foreground: #a1a1aa;
-  --border: #2a2a2a;
-  --input: #2a2a2a;
-  --ring: #ededed;
-  --accent: #2a2a2a;
-  --accent-foreground: #ededed;
-  --destructive: #ef4444;
-  --destructive-foreground: #ededed;
-  --radius: 0.75rem;
+  /* FoxyseLabs Design System */
+  --background: #1E0F13;
+  --foreground-primary: #FADBE1;
+  --foreground-muted: #E3BDC5;
+  --text-subtle: #94949E;
+
+  --surface-glass: #27171BCC;
+  --surface-container: #2C1B1F;
+
+  --accent-primary: #FF007F;
+  --accent-secondary: #FF4A8E;
+  --success: #00FFCC;
+
+  --border-subtle: #5B3F46;
+
+  --radius-sm: 6px;
+  --radius-lg: 12px;
+
+  --font-heading: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-mono), "Fira Code", monospace;
 }
 
 * {
@@ -25,9 +32,8 @@
 
 body {
   background: var(--background);
-  color: var(--foreground);
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    sans-serif;
+  color: var(--foreground-primary);
+  font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -43,73 +49,22 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #3a3a3a;
+  background: var(--border-subtle);
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #4a4a4a;
+  background: var(--accent-secondary);
 }
 
-/* Syntax highlighting theme (dark) */
-.hljs {
-  background: transparent !important;
-  color: #e6edf3 !important;
+/* Selection */
+::selection {
+  background: var(--accent-primary);
+  color: white;
 }
 
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-title,
-.hljs-section,
-.hljs-doctag,
-.hljs-name,
-.hljs-strong {
-  color: #ff7b72;
-}
-
-.hljs-string,
-.hljs-title.class_,
-.hljs-attr,
-.hljs-attribute,
-.hljs-symbol,
-.hljs-bullet,
-.hljs-addition,
-.hljs-variable,
-.hljs-template-tag,
-.hljs-template-variable {
-  color: #a5d6ff;
-}
-
-.hljs-comment,
-.hljs-quote,
-.hljs-deletion,
-.hljs-meta {
-  color: #8b949e;
-}
-
-.hljs-keyword,
-.hljs-selector-tag,
-.hljs-literal,
-.hljs-title,
-.hljs-section,
-.hljs-doctag,
-.hljs-type,
-.hljs-name,
-.hljs-link {
-  color: #ff7b72;
-}
-
-.hljs-number,
-.hljs-regexp,
-.hljs-literal,
-.hljs-built_in {
-  color: #79c0ff;
-}
-
-.hljs-params {
-  color: #c9d1d9;
-}
-
-.hljs-tag {
-  color: #7ee787;
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
 }

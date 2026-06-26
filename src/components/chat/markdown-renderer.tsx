@@ -11,7 +11,7 @@ interface MarkdownRendererProps {
 
 export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
-    <div className="prose prose-invert prose-sm max-w-none">
+    <div className="prose prose-sm max-w-none">
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         rehypePlugins={[rehypeHighlight]}
@@ -23,7 +23,11 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             if (isInline) {
               return (
                 <code
-                  className="bg-[#1a1a1a] px-1.5 py-0.5 rounded text-sm font-mono"
+                  className="px-1.5 py-0.5 rounded text-sm font-mono"
+                  style={{
+                    background: "var(--background)",
+                    color: "var(--foreground-primary)",
+                  }}
                   {...props}
                 >
                   {children}
@@ -33,12 +37,21 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
 
             return (
               <div className="relative my-3">
-                <div className="flex items-center justify-between bg-[#1a1a1a] px-4 py-2 rounded-t-md border-b border-[#3a3a3a]">
-                  <span className="text-xs text-gray-400 font-mono">
+                <div
+                  className="flex items-center justify-between px-4 py-2 rounded-t-md"
+                  style={{
+                    background: "var(--background)",
+                    borderBottom: "1px solid var(--border-subtle)",
+                  }}
+                >
+                  <span className="text-xs font-mono" style={{ color: "var(--text-subtle)" }}>
                     {match[1]}
                   </span>
                 </div>
-                <pre className="bg-[#0d0d0d] p-4 rounded-b-md overflow-x-auto">
+                <pre
+                  className="p-4 rounded-b-md overflow-x-auto"
+                  style={{ background: "#0d0d0d" }}
+                >
                   <code className={cn("text-sm font-mono", className)} {...props}>
                     {children}
                   </code>
@@ -59,17 +72,44 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             return <li className="text-sm">{children}</li>;
           },
           h1({ children }) {
-            return <h1 className="text-xl font-bold mb-2 mt-4">{children}</h1>;
+            return (
+              <h1
+                className="text-xl font-bold mb-2 mt-4"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {children}
+              </h1>
+            );
           },
           h2({ children }) {
-            return <h2 className="text-lg font-bold mb-2 mt-3">{children}</h2>;
+            return (
+              <h2
+                className="text-lg font-bold mb-2 mt-3"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {children}
+              </h2>
+            );
           },
           h3({ children }) {
-            return <h3 className="text-base font-bold mb-2 mt-3">{children}</h3>;
+            return (
+              <h3
+                className="text-base font-bold mb-2 mt-3"
+                style={{ fontFamily: "var(--font-heading)" }}
+              >
+                {children}
+              </h3>
+            );
           },
           blockquote({ children }) {
             return (
-              <blockquote className="border-l-4 border-gray-600 pl-4 italic text-gray-400 my-3">
+              <blockquote
+                className="border-l-4 pl-4 italic my-3"
+                style={{
+                  borderColor: "var(--border-subtle)",
+                  color: "var(--text-subtle)",
+                }}
+              >
                 {children}
               </blockquote>
             );
@@ -80,7 +120,8 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-400 hover:text-blue-300 underline"
+                className="underline"
+                style={{ color: "var(--accent-secondary)" }}
               >
                 {children}
               </a>
@@ -89,7 +130,10 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           table({ children }) {
             return (
               <div className="overflow-x-auto my-3">
-                <table className="min-w-full border border-[#3a3a3a]">
+                <table
+                  className="min-w-full"
+                  style={{ border: "1px solid var(--border-subtle)" }}
+                >
                   {children}
                 </table>
               </div>
@@ -97,14 +141,23 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
           },
           th({ children }) {
             return (
-              <th className="border border-[#3a3a3a] px-3 py-2 bg-[#1a1a1a] text-left text-sm font-medium">
+              <th
+                className="px-3 py-2 text-left text-sm font-medium"
+                style={{
+                  border: "1px solid var(--border-subtle)",
+                  background: "var(--background)",
+                }}
+              >
                 {children}
               </th>
             );
           },
           td({ children }) {
             return (
-              <td className="border border-[#3a3a3a] px-3 py-2 text-sm">
+              <td
+                className="px-3 py-2 text-sm"
+                style={{ border: "1px solid var(--border-subtle)" }}
+              >
                 {children}
               </td>
             );

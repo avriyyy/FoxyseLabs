@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -20,7 +18,6 @@ export function RegisterForm() {
     setIsLoading(true);
 
     try {
-      // Register the user
       const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -33,7 +30,6 @@ export function RegisterForm() {
         return;
       }
 
-      // Auto-login after registration
       const result = await signIn("credentials", {
         email,
         password,
@@ -56,43 +52,59 @@ export function RegisterForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <div className="p-3 text-sm text-red-500 bg-red-50 dark:bg-red-900/20 rounded-md">
+        <div
+          className="p-3 text-sm rounded-md"
+          style={{
+            background: "#ff000020",
+            color: "#ff6b6b",
+            border: "1px solid #ff000040",
+          }}
+        >
           {error}
         </div>
       )}
       <div className="space-y-2">
-        <label htmlFor="name" className="text-sm font-medium">
+        <label className="text-sm font-medium" style={{ color: "var(--foreground-primary)" }}>
           Name
         </label>
-        <Input
-          id="name"
+        <input
           type="text"
           placeholder="Your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
           disabled={isLoading}
+          className="w-full h-10 px-3 text-sm rounded-md outline-none"
+          style={{
+            background: "var(--surface-glass)",
+            border: "1px solid var(--border-subtle)",
+            color: "var(--foreground-primary)",
+          }}
         />
       </div>
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium">
+        <label className="text-sm font-medium" style={{ color: "var(--foreground-primary)" }}>
           Email
         </label>
-        <Input
-          id="email"
+        <input
           type="email"
           placeholder="name@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
           disabled={isLoading}
+          className="w-full h-10 px-3 text-sm rounded-md outline-none"
+          style={{
+            background: "var(--surface-glass)",
+            border: "1px solid var(--border-subtle)",
+            color: "var(--foreground-primary)",
+          }}
         />
       </div>
       <div className="space-y-2">
-        <label htmlFor="password" className="text-sm font-medium">
+        <label className="text-sm font-medium" style={{ color: "var(--foreground-primary)" }}>
           Password
         </label>
-        <Input
-          id="password"
+        <input
           type="password"
           placeholder="Create a password"
           value={password}
@@ -100,11 +112,26 @@ export function RegisterForm() {
           required
           minLength={6}
           disabled={isLoading}
+          className="w-full h-10 px-3 text-sm rounded-md outline-none"
+          style={{
+            background: "var(--surface-glass)",
+            border: "1px solid var(--border-subtle)",
+            color: "var(--foreground-primary)",
+          }}
         />
       </div>
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "Creating account..." : "Create Account"}
-      </Button>
+      <button
+        type="submit"
+        disabled={isLoading}
+        className="w-full h-10 font-mono text-sm font-semibold tracking-wider text-white"
+        style={{
+          background: "var(--accent-primary)",
+          borderRadius: "var(--radius-sm)",
+          opacity: isLoading ? 0.7 : 1,
+        }}
+      >
+        {isLoading ? "Creating account..." : "CREATE ACCOUNT"}
+      </button>
     </form>
   );
 }

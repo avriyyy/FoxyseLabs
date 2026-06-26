@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 
 export function LoginForm() {
   const router = useRouter();
@@ -41,41 +39,67 @@ export function LoginForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && (
-        <div className="p-3 text-sm text-red-500 bg-red-50 dark:bg-red-900/20 rounded-md">
+        <div
+          className="p-3 text-sm rounded-md"
+          style={{
+            background: "#ff000020",
+            color: "#ff6b6b",
+            border: "1px solid #ff000040",
+          }}
+        >
           {error}
         </div>
       )}
       <div className="space-y-2">
-        <label htmlFor="email" className="text-sm font-medium">
+        <label className="text-sm font-medium" style={{ color: "var(--foreground-primary)" }}>
           Email
         </label>
-        <Input
-          id="email"
+        <input
           type="email"
           placeholder="name@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
           disabled={isLoading}
+          className="w-full h-10 px-3 text-sm rounded-md outline-none"
+          style={{
+            background: "var(--surface-glass)",
+            border: "1px solid var(--border-subtle)",
+            color: "var(--foreground-primary)",
+          }}
         />
       </div>
       <div className="space-y-2">
-        <label htmlFor="password" className="text-sm font-medium">
+        <label className="text-sm font-medium" style={{ color: "var(--foreground-primary)" }}>
           Password
         </label>
-        <Input
-          id="password"
+        <input
           type="password"
           placeholder="Enter your password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
           disabled={isLoading}
+          className="w-full h-10 px-3 text-sm rounded-md outline-none"
+          style={{
+            background: "var(--surface-glass)",
+            border: "1px solid var(--border-subtle)",
+            color: "var(--foreground-primary)",
+          }}
         />
       </div>
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading ? "Signing in..." : "Sign In"}
-      </Button>
+      <button
+        type="submit"
+        disabled={isLoading}
+        className="w-full h-10 font-mono text-sm font-semibold tracking-wider text-white"
+        style={{
+          background: "var(--accent-primary)",
+          borderRadius: "var(--radius-sm)",
+          opacity: isLoading ? 0.7 : 1,
+        }}
+      >
+        {isLoading ? "Signing in..." : "SIGN IN"}
+      </button>
     </form>
   );
 }
