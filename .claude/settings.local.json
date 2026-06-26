@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mkdir -p /home/avriyyy/FoxyseLabs/public)",
+      "Bash(cp /home/avriyyy/FoxyseLabs/foxyse-logo.svg /home/avriyyy/FoxyseLabs/foxyse-logo-img.png /home/avriyyy/FoxyseLabs/public/)",
+      "Bash(npm install *)",
+      "Bash(npx prisma *)",
+      "Bash(npm run *)",
+      "Bash(npm list *)",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit -m 'Initial commit: FoxyseLabs chatbot/agent setup *)"
+    ]
+  }
+}
