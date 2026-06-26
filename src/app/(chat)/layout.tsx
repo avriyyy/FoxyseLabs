@@ -21,8 +21,11 @@ export default function ChatLayout({
 
   if (status === "loading") {
     return (
-      <div className="h-screen flex items-center justify-center bg-[#0d0d0d]">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-white" />
+      <div className="h-screen flex items-center justify-center" style={{ background: "var(--background)" }}>
+        <div
+          className="animate-spin rounded-full h-8 w-8 border-b-2"
+          style={{ borderColor: "var(--accent-primary)" }}
+        />
       </div>
     );
   }
@@ -32,9 +35,11 @@ export default function ChatLayout({
   }
 
   return (
-    <div className="h-screen flex overflow-hidden">
+    <div className="h-screen flex" style={{ background: "var(--background)" }}>
       <Sidebar />
-      {children}
+      <main className="flex-1 flex flex-col min-w-0">
+        {children}
+      </main>
     </div>
   );
 }

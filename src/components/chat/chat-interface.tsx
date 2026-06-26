@@ -40,6 +40,15 @@ export function ChatInterface() {
               content: m.content,
             }))
           );
+          // Update title from first message if exists
+          if (data.length > 0) {
+            const firstUserMsg = data.find((m: { role: string }) => m.role === "user");
+            if (firstUserMsg) {
+              setConversationTitle(
+                firstUserMsg.content.slice(0, 40) + (firstUserMsg.content.length > 40 ? "..." : "")
+              );
+            }
+          }
         }
       } catch (error) {
         console.error("Failed to fetch messages:", error);
@@ -49,7 +58,6 @@ export function ChatInterface() {
     };
 
     fetchMessages();
-    setMessages([]);
   }, [conversationId]);
 
   const handleSend = useCallback(
@@ -62,9 +70,8 @@ export function ChatInterface() {
       setMessages((prev) => [...prev, userMessage]);
       setIsStreaming(true);
 
-      // Update title from first message
       if (messages.length === 0) {
-        setConversationTitle(content.slice(0, 50) + (content.length > 50 ? "..." : ""));
+        setConversationTitle(content.slice(0, 40) + (content.length > 40 ? "..." : ""));
       }
 
       abortControllerRef.current = new AbortController();
@@ -84,9 +91,7 @@ export function ChatInterface() {
           signal: abortControllerRef.current.signal,
         });
 
-        if (!res.ok) {
-          throw new Error("Failed to send message");
-        }
+        if (!res.ok) throw new Error("Failed to send message");
 
         const reader = res.body?.getReader();
         const decoder = new TextDecoder();
@@ -113,9 +118,7 @@ export function ChatInterface() {
                   assistantContent += text;
                   setMessages((prev) =>
                     prev.map((m) =>
-                      m.id === assistantId
-                        ? { ...m, content: assistantContent }
-                        : m
+                      m.id === assistantId ? { ...m, content: assistantContent } : m
                     )
                   );
                 } catch {
@@ -126,9 +129,7 @@ export function ChatInterface() {
           }
         }
       } catch (error: unknown) {
-        if (error instanceof Error && error.name === "AbortError") {
-          return;
-        }
+        if (error instanceof Error && error.name === "AbortError") return;
         console.error("Chat error:", error);
         setMessages((prev) => [
           ...prev,
@@ -154,9 +155,7 @@ export function ChatInterface() {
   }, []);
 
   const handlePromptClick = useCallback(
-    (prompt: string) => {
-      handleSend(prompt);
-    },
+    (prompt: string) => handleSend(prompt),
     [handleSend]
   );
 
@@ -172,46 +171,47 @@ export function ChatInterface() {
   }
 
   return (
-    <div className="flex-1 flex flex-col" style={{ background: "var(--background)" }}>
+    <div className="flex-1 flex flex-col min-h-0" style={{ background: "var(--background)" }}>
       {/* Chat Header */}
-      <div
-        className="h-16 flex items-center justify-between px-7"
+      <header
+        className="h-14 shrink-0 flex items-center justify-between px-4 lg:px-6"
         style={{
           background: "#2C1B1F60",
           backdropFilter: "blur(12px)",
           borderBottom: "1px solid var(--border-subtle)",
         }}
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 min-w-0">
           <button
             onClick={() => setSidebarOpen(true)}
-            className="lg:hidden p-1"
-            style={{ color: "var(--accent-primary)" }}
+            className="lg:hidden p-1.5 rounded-md hover:bg-white/5"
+            style={{ color: "var(--text-subtle)" }}
           >
             <Menu className="h-5 w-5" />
           </button>
-          <div>
-            <h2 className="text-base font-semibold" style={{ color: "var(--foreground-primary)", fontFamily: "var(--font-heading)" }}>
-              {conversationTitle}
-            </h2>
-          </div>
+          <h2
+            className="text-sm font-semibold truncate"
+            style={{ color: "var(--foreground-primary)", fontFamily: "var(--font-heading)" }}
+          >
+            {conversationTitle}
+          </h2>
         </div>
         <button
-          className="p-2 rounded-md"
-          style={{
-            border: "1px solid var(--border-subtle)",
-            color: "var(--accent-primary)",
-          }}
+          className="p-2 rounded-md hover:bg-white/5 transition-colors shrink-0"
+          style={{ color: "var(--text-subtle)" }}
         >
           <Share2 className="w-4 h-4" />
         </button>
-      </div>
+      </header>
 
+      {/* Messages */}
       <MessageList
         messages={messages}
         isStreaming={isStreaming}
         onPromptClick={handlePromptClick}
       />
+
+      {/* Input */}
       <ChatInput
         onSend={handleSend}
         onStop={handleStop}
